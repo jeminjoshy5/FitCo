@@ -1,0 +1,302 @@
+:root{
+  --bg:        #fafaf8;
+  --surface:   #f1f0ea;
+  --ink:       #17140f;
+  --muted:     #726d5e;
+  --accent:    #17140f;
+  --rule:      rgba(23,20,15,0.12);
+
+  --display: 'Inter', sans-serif;
+  --body:    'Inter', sans-serif;
+  --mono:    'JetBrains Mono', monospace;
+
+  --error:   #b3413a;
+  --error-bg: rgba(179,65,58,0.08);
+  --success: #3d7a56;
+  --success-bg: rgba(61,122,86,0.08);
+
+  /* Motion — critically damped by default (no overshoot); nothing here is
+     gesture-driven, so bounce is never used. */
+  --spring: cubic-bezier(0.22, 1, 0.36, 1);
+  --spring-fast: cubic-bezier(0.3, 1, 0.4, 1);
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html,body{ height:100%; }
+
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--body);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- PAGE — single centered card ---------- */
+.page{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:28px;
+  padding:8vh 6vw;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  opacity:0;
+  transform:translateY(8px);
+  animation: reveal 0.5s var(--spring) forwards;
+}
+.brand-mark{
+  width:28px; height:28px;
+  border:1.4px solid var(--accent);
+  border-radius:7px;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--accent);
+}
+.brand-mark svg{ width:13px; height:13px; }
+
+.brand-name{
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:0.06em;
+  color:var(--muted);
+}
+
+@keyframes reveal{
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* ---------- CARD ---------- */
+.auth-card{
+  width:100%;
+  max-width:400px;
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:18px;
+  padding:34px 32px;
+  box-shadow:
+    0 1px 2px rgba(23,20,15,0.04),
+    0 16px 40px -20px rgba(23,20,15,0.16);
+  opacity:0;
+  transform:translateY(14px) scale(0.98);
+  animation: reveal-card 0.55s var(--spring) forwards;
+  animation-delay:0.08s;
+}
+
+@keyframes reveal-card{
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+
+.auth-card h1{
+  font-size:25px;
+  font-weight:700;
+  line-height:1.2;
+  letter-spacing:-0.015em;
+  margin-bottom:6px;
+}
+
+.auth-card .sub{
+  font-size:13.5px;
+  color:var(--muted);
+  line-height:1.5;
+  margin-bottom:20px;
+}
+
+/* Notices — same rounded-card language as inputs */
+.notice{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:12.5px;
+  line-height:1.4;
+  padding:10px 13px;
+  border-radius:9px;
+  margin-bottom:16px;
+  opacity:0;
+  animation: reveal 0.4s var(--spring) forwards;
+}
+.notice.success{
+  background:var(--success-bg);
+  color:var(--success);
+  border:1px solid rgba(61,122,86,0.2);
+}
+.notice.error{
+  background:var(--error-bg);
+  color:var(--error);
+  border:1px solid rgba(179,65,58,0.2);
+}
+
+/* ---------- FORM ---------- */
+.auth-form{
+  display:flex;
+  flex-direction:column;
+}
+
+.field-label{
+  display:block;
+  font-size:12px;
+  font-weight:500;
+  color:var(--ink);
+  margin-bottom:5px;
+}
+
+.field-input{
+  width:100%;
+  background:#fdfdfc;
+  border:1px solid var(--rule);
+  border-radius:9px;
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:14px;
+  padding:10px 12px;
+  margin-bottom:20px;
+  box-shadow: 0 1px 2px rgba(23,20,15,0.03);
+  transition: border-color 0.2s var(--spring-fast), box-shadow 0.2s var(--spring-fast), background 0.2s var(--spring-fast);
+}
+
+.field-input::placeholder{
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.02em;
+  color:#b3ac9c;
+}
+
+.field-input:hover{
+  border-color:rgba(23,20,15,0.22);
+}
+
+.field-input:focus{
+  outline:none;
+  border-color:var(--accent);
+  background:#ffffff;
+  box-shadow: 0 0 0 3.5px rgba(23,20,15,0.07);
+}
+
+.field-input:focus-visible{ outline:none; }
+
+/* Password fields — input + show/hide toggle, spacing owned by the hint
+   that follows rather than the input itself */
+.pass-field{
+  position:relative;
+  margin-bottom:0;
+}
+.pass-field .field-input{
+  margin-bottom:0;
+  padding-right:42px;
+}
+
+.pass-toggle{
+  position:absolute;
+  top:50%;
+  right:6px;
+  transform:translateY(-50%);
+  width:26px;
+  height:26px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  border:none;
+  border-radius:6px;
+  color:var(--muted);
+  cursor:pointer;
+  padding:0;
+  transition: color 0.15s var(--spring-fast), background 0.15s var(--spring-fast);
+}
+.pass-toggle svg{ width:16px; height:16px; }
+.pass-toggle:hover{ color:var(--ink); background:var(--rule); }
+.pass-toggle.is-visible{ color:var(--accent); }
+.pass-toggle:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+
+.field-hint{
+  font-size:11.5px;
+  color:var(--muted);
+  margin-top:5px;
+  margin-bottom:14px;
+  min-height:1.3em;
+  transition: color 0.15s var(--spring-fast);
+}
+.field-hint.is-error{ color:var(--error); }
+
+/* Buttons — feedback lands on press (pointer-down via :active), instantly */
+.submit-btn{
+  width:100%;
+  background:var(--accent);
+  color:#fff;
+  border:none;
+  font-family:var(--body);
+  font-weight:600;
+  font-size:13.5px;
+  padding:11px 16px;
+  border-radius:8px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  transition: background 0.15s var(--spring-fast), transform 0.1s ease-out;
+}
+.submit-btn:hover{ background:#000000; }
+.submit-btn:active{ transform:scale(0.97); }
+.submit-btn:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+
+.btn-spinner{
+  display:none;
+  width:14px;
+  height:14px;
+  flex:none;
+  border:2px solid rgba(255,255,255,0.35);
+  border-top-color:#fff;
+  border-radius:50%;
+  animation: btnSpin 0.7s linear infinite;
+}
+.submit-btn.is-loading{
+  cursor:default;
+  opacity:0.92;
+  pointer-events:none;
+}
+.submit-btn.is-loading .btn-label{ opacity:0.9; }
+.submit-btn.is-loading .btn-spinner{ display:inline-block; }
+
+@keyframes btnSpin{
+  to{ transform:rotate(360deg); }
+}
+
+.back-link{
+  display:block;
+  text-align:center;
+  margin-top:16px;
+  font-size:12px;
+  color:var(--muted);
+  text-decoration:none;
+  transition: color 0.15s var(--spring-fast);
+}
+.back-link:hover{ color:var(--ink); }
+.back-link:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:480px){
+  .page{ padding:7vh 6vw; gap:22px; }
+  .auth-card{ padding:28px 22px; }
+  .auth-card h1{ font-size:22px; }
+}
+
+/* ---------- REDUCED MOTION — gentler, non-vestibular equivalents ---------- */
+@media (prefers-reduced-motion: reduce){
+  .brand,
+  .auth-card,
+  .notice{
+    animation:none !important;
+    opacity:1 !important;
+    transform:none !important;
+  }
+  .submit-btn:active{ transform:none !important; }
+  .btn-spinner{ animation:none !important; }
+}

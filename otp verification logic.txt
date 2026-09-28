@@ -1,0 +1,43 @@
+User fills Signup Form
+        │
+        ▼
+Clicks Submit
+        │
+        ▼
+signup.php
+        │
+        ├── Validate all fields
+        │
+        ├── Check if email already exists
+        │
+        ├── If email exists
+        │      │
+        │      └── Show "Email already registered"
+        │
+        └── If email does not exist
+               │
+               ├── Store all form data in $_SESSION
+               ├── Generate a 6-digit OTP
+               ├── Store OTP in $_SESSION
+               ├── Send OTP to the email
+               └── Redirect to verify-otp.php
+                        │
+                        ▼
+                User enters OTP
+                        │
+                        ▼
+                verify-otp.php
+                        │
+                        ├── Compare entered OTP with $_SESSION['otp']
+                        │
+                        ├── Incorrect OTP
+                        │      │
+                        │      └── Show "Invalid OTP"
+                        │
+                        └── Correct OTP
+                               │
+                               ├── Read data from $_SESSION
+                               ├── Insert into database
+                               ├── Delete OTP from session
+                               ├── Delete signup data from session
+                               └── Redirect to Login Page

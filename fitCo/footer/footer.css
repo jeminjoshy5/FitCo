@@ -1,0 +1,20 @@
+.site-footer{ border-top:1px solid var(--rule); background:var(--surface); margin-top:80px; }
+.site-footer__inner{
+  max-width:1160px; margin:0 auto; padding:56px 24px 32px;
+  display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:40px;
+}
+.site-footer__brand .brand{ display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.site-footer__brand .brand-mark{ width:28px; height:28px; }
+.site-footer__brand .brand-name{ font-weight:700; letter-spacing:0.02em; }
+.site-footer__tag{ color:var(--muted); font-size:13.5px; line-height:1.6; max-width:280px; }
+.site-footer__col h4{ font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--muted); margin-bottom:12px; }
+.site-footer__col{ display:flex; flex-direction:column; gap:9px; }
+.site-footer__col a{ color:var(--ink); text-decoration:none; font-size:14px; }
+.site-footer__col a:hover{ text-decoration:underline; }
+.site-footer__bottom{
+  border-top:1px solid var(--rule); padding:18px 24px; max-width:1160px; margin:0 auto;
+  color:var(--muted); font-size:12.5px;
+}
+@media (max-width:760px){
+  .site-footer__inner{ grid-template-columns:1fr 1fr; }
+}

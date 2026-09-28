@@ -1,0 +1,7 @@
+ticketing-server running commands
+angular(pm2)-pm2 start cmd --name admin-frontend -- /c "ng serve --host 0.0.0.0 --port 4200"
+express(pm2)-pm2 start server.js --name backend
+
+open port to get access from outside using ngrok
+command for tunneling:-
+ngrok http 5001
