@@ -144,17 +144,3 @@ This is a script, not a web page — nothing in the app links to it, and it has 
 6. (Optional) Schedule `fitCo/cron/send-membership-notices.php` as described above.
 
 **Email-dependent features** (OTP verification, forgot password, membership notices) need a working SMTP account — the project ships with one already configured in `verify-otp.php` (both modules) and the cron script. If you rotate to your own, update the `PHPMailer` block in each of those files.
-
----
-
-## Security notes — please read
-
-A few decisions here were made explicitly for this being a college project, not general best practice for a real deployed app:
-
-- **Passwords are stored in plain text**, not hashed. This was an explicit choice made during development — if this project is ever used for anything beyond a demo/coursework, switch back to `password_hash()` / `password_verify()` first.
-- **SMTP credentials are hardcoded** in `verify-otp.php` (both modules) and the cron script, rather than pulled from an environment variable or gitignored config. Don't push this repo somewhere public without rotating that password first.
-- The **payment gateway is simulated**, not connected to a real processor (see [Payments](#payments)).
-- Several pages build SQL with string interpolation rather than prepared statements. IDs are cast to `(int)` before use in most places, and string values generally go through `mysqli_real_escape_string()`, but this hasn't been audited/converted end-to-end.
-- There's no CSRF protection on state-changing forms.
-
-None of this blocks the project from working or being demoed — it's just worth knowing what's a deliberate demo shortcut versus what you'd want to change before this became a real, publicly-reachable product.
